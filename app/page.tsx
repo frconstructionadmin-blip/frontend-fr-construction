@@ -28,7 +28,7 @@ const testimonials = [
     quote:
       "Quick, tidy, and great quality. Had several odd jobs done around the house and couldn't be happier.",
     name: "Rachel Brooks",
-    photo: "https://i.pravatar.cc/80?img=58",
+    photo: "https://i.pravatar.cc/80?img=54",
   },
 ];
 
