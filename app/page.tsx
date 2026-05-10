@@ -22,7 +22,7 @@ const testimonials = [
     quote:
       "We hired FR Construction for a full kitchen renovation. Brilliant work, fair pricing, and a really friendly crew.",
     name: "David King",
-    photo: "https://i.pravatar.cc/80?img=15",
+    photo: "https://i.pravatar.cc/80?img=52",
   },
   {
     quote:
