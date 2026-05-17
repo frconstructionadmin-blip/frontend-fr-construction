@@ -1,38 +1,14 @@
 import Image from "next/image";
 import FadeIn from "./components/FadeIn";
 import WorkSection from "./components/WorkSection";
+import { fetchTestimonials } from "./lib/testimonials";
+import TestimonialsCarousel from "./components/TestimonialsCarousel";
 
 const WA_LINK =
   "https://wa.me/447944623838?text=Hi%2C%20how%20are%20you%3F%20I%20am%20looking%20for%20construction%2C%20carpentry%20and%20handyman%20solutions";
 
-const testimonials = [
-  {
-    quote:
-      "Franco and his team transformed our loft into a beautiful living space. Exceptional craftsmanship and they kept to the timeline perfectly.",
-    name: "James Turner",
-    photo: "https://i.pravatar.cc/80?img=11",
-  },
-  {
-    quote:
-      "The fitted wardrobes they built are stunning — exactly what I had in mind. Very professional from start to finish.",
-    name: "Sarah Mitchell",
-    photo: "https://i.pravatar.cc/80?img=44",
-  },
-  {
-    quote:
-      "We hired FR Construction for a full kitchen renovation. Brilliant work, fair pricing, and a really friendly crew.",
-    name: "David King",
-    photo: "https://i.pravatar.cc/80?img=52",
-  },
-  {
-    quote:
-      "Quick, tidy, and great quality. Had several odd jobs done around the house and couldn't be happier.",
-    name: "Rachel Brooks",
-    photo: "https://i.pravatar.cc/80?img=54",
-  },
-];
-
-export default function Home() {
+export default async function Home() {
+  const testimonials = await fetchTestimonials(4);
   return (
     <>
       {/* ── NAV ─────────────────────────────────────────────────────────── */}
@@ -133,6 +109,19 @@ export default function Home() {
             What we do
           </a>
         </div>
+          <p
+            className="mt-5 text-sm inline-block"
+            style={{
+              color: "rgba(255,255,255,0.9)",
+              background: "rgba(0,0,0,0.45)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              borderRadius: 999,
+              padding: "7px 18px",
+              backdropFilter: "blur(6px)",
+            }}
+          >
+            ✓ First visit is free — we come to you, assess the job, and give you a quote with no charge.
+          </p>
         </div>
       </section>
 
@@ -194,7 +183,7 @@ export default function Home() {
       <section style={{ background: "rgb(247, 245, 242)", padding: "80px 24px" }}>
         <FadeIn>
           <h2
-            className="text-center font-semibold mb-12"
+            className="text-center font-semibold mb-4"
             style={{
               fontFamily: "'SF Pro Display', system-ui, -apple-system, sans-serif",
               fontSize: "clamp(28px, 4vw, 40px)",
@@ -204,52 +193,33 @@ export default function Home() {
           >
             What Our Clients Say
           </h2>
+          <div className="flex justify-center mb-10">
+            <a
+              href="https://www.myjobquote.co.uk/t/fr-construction-1"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                background: "#1565C0",
+                color: "#fff",
+                borderRadius: 999,
+                padding: "5px 14px",
+                fontSize: 13,
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span>Verified reviews on <span style={{ color: "#E53935" }}>my</span><span style={{ color: "#ffffff" }}>Job</span><span style={{ color: "#E53935" }}>Quote</span></span>
+            </a>
+          </div>
         </FadeIn>
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-5 mx-auto"
-          style={{ maxWidth: 900 }}
-        >
-          {testimonials.map(({ quote, name, photo }, i) => (
-            <FadeIn key={name} delay={i * 100}>
-              <div
-                className="flex flex-col justify-between"
-                style={{
-                  background: "#1a1a1a",
-                  borderRadius: 18,
-                  padding: 24,
-                  minHeight: 160,
-                }}
-              >
-                <p
-                  style={{
-                    color: "#ffffff",
-                    fontSize: 16,
-                    lineHeight: 1.55,
-                    letterSpacing: "-0.2px",
-                    marginBottom: 24,
-                  }}
-                >
-                  &ldquo;{quote}&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={photo}
-                    alt={name}
-                    width={38}
-                    height={38}
-                    style={{ width: 38, height: 38, borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
-                  />
-                  <p
-                    className="font-semibold"
-                    style={{ color: "#ffffff", fontSize: 14, letterSpacing: "-0.2px" }}
-                  >
-                    {name}
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
+        <div style={{ margin: "0 -24px" }}>
+          <TestimonialsCarousel testimonials={testimonials} />
         </div>
       </section>
 
@@ -321,6 +291,22 @@ export default function Home() {
           </p>
         </div>
       </footer>
+
+      {/* ── FLOATING MYJOBQUOTE ─────────────────────────────────────────── */}
+      <a
+        href="https://www.myjobquote.co.uk/t/fr-construction-1"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="See our reviews on MyJobQuote"
+        className="fixed bottom-7 right-24 sm:bottom-28 sm:right-7 z-50 flex items-center justify-center rounded-full overflow-hidden transition-transform active:scale-90"
+        style={{
+          width: 56,
+          height: 56,
+          boxShadow: "0 4px 16px rgba(0,0,0,0.25)",
+        }}
+      >
+        <Image src="/myjobqoute.png" alt="MyJobQuote" width={56} height={56} style={{ objectFit: "cover" }} />
+      </a>
 
       {/* ── FLOATING WHATSAPP ────────────────────────────────────────────── */}
       <a

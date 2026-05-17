@@ -30,6 +30,123 @@
 
 html { scroll-behavior: smooth; }
 
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.testimonials-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.testimonials-track:hover {
+  animation-play-state: paused;
+}
+
+.testimonials-mask {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent);
+}
+
+@media (max-width: 640px) {
+  /* On mobile: disable the auto-scroll, use touch scroll with snap instead */
+  .testimonials-mask {
+    mask-image: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px 20px 16px;
+    cursor: grab;
+  }
+  .testimonials-mask::-webkit-scrollbar {
+    display: none;
+  }
+  .testimonials-track {
+    animation: none;
+    scroll-snap-type: x mandatory;
+  }
+  .testimonials-card {
+    scroll-snap-align: start;
+  }
+}
+
+@keyframes work-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.work-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: work-scroll 52s linear infinite;
+}
+
+.work-track:hover {
+  animation-play-state: paused;
+}
+
+.work-mask {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent);
+}
+
+.work-photo {
+  position: relative;
+  width: 480px;
+  aspect-ratio: 4/3;
+  border-radius: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.work-photo-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px 16px 16px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.72));
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  line-height: 1.4;
+  transform: translateY(100%);
+  transition: transform 0.28s ease;
+}
+
+.work-photo:hover .work-photo-caption {
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .work-mask {
+    mask-image: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .work-mask::-webkit-scrollbar {
+    display: none;
+  }
+  .work-track {
+    animation: none;
+    scroll-snap-type: x mandatory;
+  }
+  .work-photo {
+    width: min(300px, 80vw);
+    aspect-ratio: 4/3;
+    border-radius: 14px;
+    scroll-snap-align: start;
+  }
+}
+
 body {
   background: var(--canvas);
   color: var(--ink);
