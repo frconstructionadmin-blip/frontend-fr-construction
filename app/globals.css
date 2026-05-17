@@ -145,6 +145,9 @@ html { scroll-behavior: smooth; }
     border-radius: 14px;
     scroll-snap-align: start;
   }
+  .work-photo.is-active .work-photo-caption {
+    transform: translateY(0);
+  }
 }
 
 body {

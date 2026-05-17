@@ -13,9 +13,9 @@ const PHOTOS = [
   { src: "/works/work-08.jpeg", alt: "FR Construction work in London", caption: "Installation work" },
 ];
 
-function PhotoCard({ src, alt, caption }: { src: string; alt: string; caption: string }) {
+function PhotoCard({ src, alt, caption, isActive }: { src: string; alt: string; caption: string; isActive?: boolean }) {
   return (
-    <div className="work-photo">
+    <div className={`work-photo${isActive ? " is-active" : ""}`}>
       <Image src={src} alt={alt} fill style={{ objectFit: "cover" }} sizes="(max-width: 640px) 300px, 480px" />
       <div className="work-photo-caption">{caption}</div>
     </div>
@@ -102,7 +102,7 @@ export default function WorkCarousel() {
           onScroll={handleScroll}
         >
           <div className="work-track" style={{ animation: "none" }}>
-            {PHOTOS.map((p, i) => <PhotoCard key={i} {...p} />)}
+            {PHOTOS.map((p, i) => <PhotoCard key={i} {...p} isActive={i === currentIndex} />)}
           </div>
         </div>
       </div>
