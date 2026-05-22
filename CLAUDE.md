@@ -10,6 +10,46 @@ npm run build
 npm run lint
 ```
 
+## Environment variables (frontend — `.env.local`, gitignored)
+
+```
+NEXT_PUBLIC_BACKEND_URL=https://api.frconstructionlondon.com   # FastAPI backend
+ADMIN_JWT_SECRET=<same secret as backend>                      # used in proxy.ts to verify JWT
+```
+
+## App structure
+
+The frontend has two parts:
+
+1. **Public landing page** — `/` — static marketing site (no auth)
+2. **Admin dashboard** — `/whatsapp` — protected by JWT auth (see below)
+
+### Admin dashboard (`/whatsapp`)
+
+A WhatsApp-style conversation viewer for Franco to monitor and respond to customers.
+
+**Auth:** `/login` — username/password, issues JWT cookie via `POST /auth/login` on the backend. `proxy.ts` (Next.js 16 proxy) guards all `/whatsapp/*` routes and redirects to `/login` if the cookie is missing or invalid.
+
+**Dashboard features:**
+- Left sidebar: all conversations (phone/name, last message, bot status indicator)
+- Right panel: chat bubbles (user messages left, bot replies right)
+- Per-conversation toggle panel:
+  - **Bot on/off** — green toggle, stops bot auto-replies for this number
+  - **EN→ES** — translates incoming client messages to Spanish for Franco to read
+  - **ES→EN** — translates Franco's outgoing Spanish replies to English before sending
+
+**Key files:**
+- `proxy.ts` — JWT guard (Next.js 16 proxy convention)
+- `app/login/page.tsx` — login form (client component, calls backend)
+- `app/whatsapp/page.tsx` — server component, fetches initial conversation list
+- `app/whatsapp/components/DashboardShell.tsx` — client shell, manages selected conversation state
+- `app/whatsapp/components/ConversationList.tsx` — sidebar with 4-second polling
+- `app/whatsapp/components/ChatWindow.tsx` — messages + input + 4-second polling
+- `app/whatsapp/components/SettingsToggles.tsx` — bot/translation toggle buttons
+- `app/lib/dashboard-api.ts` — typed API client (all calls include `credentials: "include"`)
+
+---
+
 ## Purpose
 
 Conversion-focused landing page for **FR Construction** — a construction, carpentry, and handyman service based in London, run by **Franco Reyes**. The primary goal is to get visitors to open a WhatsApp conversation with Franco.

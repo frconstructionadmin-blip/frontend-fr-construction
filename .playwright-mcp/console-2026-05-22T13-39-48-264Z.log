@@ -1,0 +1,28 @@
+[     241ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[     338ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[     485ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[     488ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[     489ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {o: http://localhost:3000/login, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 2.0.1, ts: 1779457188752} /_vercel/insights/view @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[     660ms] [LOG] [Fast Refresh] done in 297ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[   18529ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/auth/login:0
+[   22531ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/auth/login:0
+[   27273ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[   28209ms] [LOG] [Fast Refresh] done in 1036ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[   28258ms] [WARNING] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[   28259ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3000/whatsapp color: rgb(120, 120, 120) color: inherit {o: http://localhost:3000/whatsapp, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 2.0.1, ts: 1779457216510} /_vercel/insights/view @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  404675ms] [ERROR] Failed to load resource: net::ERR_EMPTY_RESPONSE @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  404675ms] [ERROR] Failed to load resource: net::ERR_EMPTY_RESPONSE @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  404677ms] [ERROR] Failed to load resource: net::ERR_EMPTY_RESPONSE @ http://localhost:8000/dashboard/conversations:0
+[  404678ms] [ERROR] Failed to load resource: net::ERR_EMPTY_RESPONSE @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  404678ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  404678ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  404679ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  404679ms] [ERROR] Failed to load resource: net::ERR_SOCKET_NOT_CONNECTED @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  404681ms] [ERROR] Failed to load resource: net::ERR_SOCKET_NOT_CONNECTED @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  404681ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  406645ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  406645ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8000/dashboard/conversations/447511753411/settings:0
+[  408267ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8000/dashboard/conversations:0
+[  410640ms] [ERROR] Failed to load resource: net::ERR_SOCKET_NOT_CONNECTED @ http://localhost:8000/dashboard/conversations/447511753411/messages:0
+[  410640ms] [ERROR] Failed to load resource: net::ERR_SOCKET_NOT_CONNECTED @ http://localhost:8000/dashboard/conversations/447511753411/settings:0
+[  412266ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:8000/dashboard/conversations:0

@@ -1,0 +1,10 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - complementary [ref=e5]:
+      - generic [ref=e6]:
+        - heading "Conversations" [level=2] [ref=e7]
+        - paragraph [ref=e8]: 0 total
+      - paragraph [ref=e10]: No conversations yet
+    - paragraph [ref=e13]: Select a conversation to start
+  - button "Open Next.js Dev Tools" [ref=e19] [cursor=pointer]:
+    - img [ref=e20]
