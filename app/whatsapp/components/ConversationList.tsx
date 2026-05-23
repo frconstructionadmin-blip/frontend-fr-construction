@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Conversation, dashboardApi } from "@/app/lib/dashboard-api";
 
@@ -51,6 +51,27 @@ export default function ConversationList({
   const router = useRouter();
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [search, setSearch] = useState("");
+  const [unread, setUnread] = useState<Set<string>>(new Set());
+  const lastSeenAt = useRef<Record<string, string>>(
+    Object.fromEntries(initialConversations.map((c) => [c.phone, c.last_message_at ?? ""]))
+  );
+
+  function markRead(phone: string) {
+    setUnread((prev) => {
+      const next = new Set(prev);
+      next.delete(phone);
+      const count = next.size;
+      if ("setAppBadge" in navigator) {
+        count > 0 ? navigator.setAppBadge(count) : navigator.clearAppBadge();
+      }
+      return next;
+    });
+  }
+
+  function handleSelect(phone: string) {
+    markRead(phone);
+    onSelect(phone);
+  }
 
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
@@ -63,12 +84,29 @@ export default function ConversationList({
         const data = await dashboardApi.listConversations();
         setConversations(data);
         onConversationsUpdate(data);
+
+        setUnread((prev) => {
+          const next = new Set(prev);
+          for (const conv of data) {
+            const prev_at = lastSeenAt.current[conv.phone] ?? "";
+            const curr_at = conv.last_message_at ?? "";
+            if (curr_at && curr_at !== prev_at && conv.phone !== selectedPhone && conv.last_message_role === "user") {
+              next.add(conv.phone);
+            }
+            lastSeenAt.current[conv.phone] = curr_at;
+          }
+          const count = next.size;
+          if ("setAppBadge" in navigator) {
+            count > 0 ? navigator.setAppBadge(count) : navigator.clearAppBadge();
+          }
+          return next;
+        });
       } catch {
         // keep stale data on error
       }
     }, 4000);
     return () => clearInterval(interval);
-  }, [onConversationsUpdate]);
+  }, [onConversationsUpdate, selectedPhone]);
 
   const filtered = search
     ? conversations.filter((c) => {
@@ -122,53 +160,61 @@ export default function ConversationList({
         {filtered.length === 0 && (
           <p className="text-[#7a7a7a] text-sm text-center mt-10 px-4">No conversations found</p>
         )}
-        {filtered.map((conv) => (
-          <button
-            key={conv.phone}
-            onClick={() => onSelect(conv.phone)}
-            className={`w-full text-left border-b border-[#f0f0f0] transition-colors ${
-              selectedPhone === conv.phone
-                ? "bg-[#FEF3DC]"
-                : "hover:bg-[#f5f5f7]"
-            }`}
-          >
-            <div className="flex items-center gap-3 px-4 py-3">
-              {/* Avatar */}
-              <div
-                className="w-12 h-12 rounded-full shrink-0 flex items-center justify-center text-white font-semibold text-base select-none"
-                style={{ backgroundColor: getAvatarColor(conv.phone) }}
-              >
-                {getInitials(conv.name, conv.phone)}
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-[#1d1d1f] text-sm font-semibold truncate">
-                    {conv.name ?? conv.phone}
-                  </span>
-                  <span className="text-[#7a7a7a] text-xs shrink-0">
-                    {formatTime(conv.last_message_at)}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between mt-0.5 gap-2">
-                  <p className="text-[#7a7a7a] text-xs truncate flex-1">
-                    {conv.last_message_role === "assistant" && (
-                      <span className="text-[#C8972A] mr-1">You:</span>
-                    )}
-                    {conv.last_message ?? ""}
-                  </p>
-                  {!conv.bot_enabled && (
-                    <span className="text-[9px] border border-[#e0e0e0] text-[#7a7a7a] rounded px-1.5 py-0.5 shrink-0">
-                      bot off
-                    </span>
+        {filtered.map((conv) => {
+          const hasUnread = unread.has(conv.phone);
+          return (
+            <button
+              key={conv.phone}
+              onClick={() => handleSelect(conv.phone)}
+              className={`w-full text-left border-b border-[#f0f0f0] transition-colors ${
+                selectedPhone === conv.phone
+                  ? "bg-[#FEF3DC]"
+                  : "hover:bg-[#f5f5f7]"
+              }`}
+            >
+              <div className="flex items-center gap-3 px-4 py-3">
+                {/* Avatar */}
+                <div className="relative shrink-0">
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold text-base select-none"
+                    style={{ backgroundColor: getAvatarColor(conv.phone) }}
+                  >
+                    {getInitials(conv.name, conv.phone)}
+                  </div>
+                  {hasUnread && (
+                    <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full border-2 border-white" />
                   )}
                 </div>
+
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className={`text-sm truncate ${hasUnread ? "text-[#1d1d1f] font-bold" : "text-[#1d1d1f] font-semibold"}`}>
+                      {conv.name ?? conv.phone}
+                    </span>
+                    <span className={`text-xs shrink-0 ${hasUnread ? "text-blue-500 font-medium" : "text-[#7a7a7a]"}`}>
+                      {formatTime(conv.last_message_at)}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-0.5 gap-2">
+                    <p className={`text-xs truncate flex-1 ${hasUnread ? "text-[#1d1d1f]" : "text-[#7a7a7a]"}`}>
+                      {conv.last_message_role === "assistant" && (
+                        <span className="text-[#C8972A] mr-1">You:</span>
+                      )}
+                      {conv.last_message ?? ""}
+                    </p>
+                    {!conv.bot_enabled && (
+                      <span className="text-[9px] border border-[#e0e0e0] text-[#7a7a7a] rounded px-1.5 py-0.5 shrink-0">
+                        bot off
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          );
+        })}
       </div>
     </aside>
   );
