@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import ServiceWorkerRegistrar from "./components/ServiceWorkerRegistrar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,6 +16,12 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: { card: "summary_large_image" },
+  appleWebApp: {
+    capable: true,
+    title: "FR Admin",
+    statusBarStyle: "default",
+  },
+  formatDetection: { telephone: false },
 };
 
 const localBusinessSchema = {
@@ -38,6 +45,8 @@ export default function RootLayout({
   return (
     <html lang="en-GB">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <link rel="apple-touch-icon" href="/logoreal.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
@@ -45,6 +54,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <ServiceWorkerRegistrar />
         <Analytics />
       </body>
     </html>
