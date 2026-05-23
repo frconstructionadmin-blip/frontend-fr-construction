@@ -53,10 +53,7 @@ export default function ConversationList({
   const [search, setSearch] = useState("");
 
   async function handleLogout() {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
-      method: "POST",
-      credentials: "include",
-    }).catch(() => {});
+    await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
     router.push("/login");
   }
 
