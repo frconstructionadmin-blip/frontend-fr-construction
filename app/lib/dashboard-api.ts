@@ -1,4 +1,4 @@
-const BASE = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
+const BASE = "/api/backend";
 
 export interface ConversationCosts {
   bot_usd: number;
@@ -42,7 +42,6 @@ export interface ConversationSettings {
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
-    credentials: "include",
     ...init,
   });
   if (!res.ok) {
