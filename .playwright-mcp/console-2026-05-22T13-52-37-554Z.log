@@ -75,3 +75,21 @@
 [76100372ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3000/whatsapp color: rgb(120, 120, 120) color: inherit {o: http://localhost:3000/whatsapp, sv: 0.1.3, sdkn: @vercel/analytics/react, sdkv: 2.0.1, ts: 1779534057925} /_vercel/insights/view @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
 [77492160ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
 [77492184ms] [LOG] [Fast Refresh] done in 55ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[78233655ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:8000/dashboard/conversations:0
+[78235336ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:8000/dashboard/conversations:0
+[78239338ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:8000/dashboard/conversations:0
+[78275339ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78279335ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78283342ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78287335ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78291337ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78295335ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78299337ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78303336ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78307336ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78311336ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78315335ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78319342ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78323335ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
+[78327337ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:8000/dashboard/conversations:0
+[78331343ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8000/dashboard/conversations:0
