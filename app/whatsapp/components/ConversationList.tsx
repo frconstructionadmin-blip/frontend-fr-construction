@@ -90,7 +90,7 @@ export default function ConversationList({
           for (const conv of data) {
             const prev_at = lastSeenAt.current[conv.phone] ?? "";
             const curr_at = conv.last_message_at ?? "";
-            if (curr_at && curr_at !== prev_at && conv.phone !== selectedPhone && conv.last_message_role === "user") {
+            if (curr_at && curr_at !== prev_at && conv.phone !== selectedPhone) {
               next.add(conv.phone);
             }
             lastSeenAt.current[conv.phone] = curr_at;
