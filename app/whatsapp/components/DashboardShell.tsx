@@ -1,9 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Conversation, ConversationCosts } from "@/app/lib/dashboard-api";
 import ConversationList from "./ConversationList";
 import ChatWindow from "./ChatWindow";
+
+function urlBase64ToUint8Array(base64: string): Uint8Array {
+  const padding = "=".repeat((4 - (base64.length % 4)) % 4);
+  const b64 = (base64 + padding).replace(/-/g, "+").replace(/_/g, "/");
+  const raw = atob(b64);
+  return Uint8Array.from([...raw].map((c) => c.charCodeAt(0)));
+}
+
+async function subscribeToPush() {
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) return;
+
+  const permission = await Notification.requestPermission();
+  if (permission !== "granted") return;
+
+  const reg = await navigator.serviceWorker.ready;
+
+  const vapidRes = await fetch("/api/backend/dashboard/push/vapid-public-key");
+  if (!vapidRes.ok) return;
+  const { publicKey } = await vapidRes.json();
+  if (!publicKey) return;
+
+  const subscription = await reg.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: urlBase64ToUint8Array(publicKey),
+  });
+
+  const { endpoint, keys } = subscription.toJSON() as {
+    endpoint: string;
+    keys: { p256dh: string; auth: string };
+  };
+
+  await fetch("/api/backend/dashboard/push/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ endpoint, p256dh: keys.p256dh, auth: keys.auth }),
+  });
+}
 
 interface Props {
   initialConversations: Conversation[];
@@ -17,6 +54,10 @@ export default function DashboardShell({ initialConversations }: Props) {
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [selectedPhone, setSelectedPhone] = useState<string | null>(null);
   const [chatOpen, setChatOpen] = useState(false);
+
+  useEffect(() => {
+    subscribeToPush().catch(() => {});
+  }, []);
 
   const selectedConv = conversations.find((c) => c.phone === selectedPhone) ?? null;
 
