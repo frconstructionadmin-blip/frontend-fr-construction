@@ -83,10 +83,14 @@ export default function DashboardShell({ initialConversations }: Props) {
       return;
     }
     if (Notification.permission === "granted") {
-      setPushState("subscribed");
+      // Permission already granted — subscribe silently (no dialog needed)
+      subscribeToPush()
+        .then(() => setPushState("subscribed"))
+        .catch(() => setPushState("subscribed"));
     } else if (Notification.permission === "denied") {
       setPushState("denied");
     }
+    // else "default" → show button, wait for user click
   }, []);
 
   async function handleEnableNotifications() {
