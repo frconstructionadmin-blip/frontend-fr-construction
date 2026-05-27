@@ -158,14 +158,6 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
   const [showCosts, setShowCosts] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const prevMsgCountRef = useRef(0);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  function openPicker(accept: string) {
-    if (!fileInputRef.current) return;
-    fileInputRef.current.accept = accept;
-    fileInputRef.current.value = "";
-    fileInputRef.current.click();
-  }
 
   useEffect(() => {
     let cancelled = false;
@@ -417,13 +409,13 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
 
       {/* Input bar */}
       <div className="pl-2 pr-3 py-2 bg-[#f0f2f5] flex items-end gap-2 shrink-0">
-        {/* Single hidden file input — accept is set dynamically before click */}
-        <input
-          ref={fileInputRef}
-          type="file"
-          className="hidden"
-          onChange={handleFileChange}
-        />
+        {/* Two separate inputs — accept fixed at render time (Android requirement) */}
+        <input id="chat-media-input" type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/3gpp"
+          className="hidden" onChange={handleFileChange} />
+        <input id="chat-doc-input" type="file"
+          accept="application/pdf"
+          className="hidden" onChange={handleFileChange} />
 
         {/* Text input + emoji + attachment + camera */}
         <form onSubmit={handleSend} className="flex-1 flex items-center bg-white rounded-3xl px-3 py-1 gap-1 shadow-sm min-w-0">
@@ -443,11 +435,9 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
           />
 
           {/* Paperclip — PDFs only */}
-          <button
-            type="button"
-            onClick={() => openPicker("application/pdf")}
-            disabled={uploading || sending}
-            className="p-1.5 text-[#8696a0] hover:text-[#1d1d1f] shrink-0 disabled:opacity-40 transition-colors"
+          <label
+            htmlFor="chat-doc-input"
+            className={`p-1.5 shrink-0 transition-colors cursor-pointer ${uploading || sending ? "opacity-40 pointer-events-none" : "text-[#8696a0] hover:text-[#1d1d1f]"}`}
             aria-label="Attach PDF"
           >
             {uploading ? (
@@ -460,21 +450,19 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
                 <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
               </svg>
             )}
-          </button>
+          </label>
 
           {/* Camera — photos & videos */}
-          <button
-            type="button"
-            onClick={() => openPicker("image/jpeg,image/png,image/webp,image/gif,video/mp4,video/3gpp")}
-            disabled={uploading || sending}
-            className="p-1.5 text-[#8696a0] hover:text-[#1d1d1f] shrink-0 disabled:opacity-40 transition-colors"
+          <label
+            htmlFor="chat-media-input"
+            className={`p-1.5 shrink-0 transition-colors cursor-pointer ${uploading || sending ? "opacity-40 pointer-events-none" : "text-[#8696a0] hover:text-[#1d1d1f]"}`}
             aria-label="Send photo or video"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-          </button>
+          </label>
         </form>
 
         {/* Send button */}
