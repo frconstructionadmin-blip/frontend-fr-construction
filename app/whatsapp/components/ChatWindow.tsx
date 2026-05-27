@@ -409,16 +409,6 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
 
       {/* Input bar */}
       <div className="pl-2 pr-3 py-2 bg-[#f0f2f5] flex items-end gap-2 shrink-0">
-        {/* Two separate inputs — visually hidden but NOT display:none (Android compatibility) */}
-        <input id="chat-media-input" type="file"
-          accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/3gpp"
-          onChange={handleFileChange}
-          style={{ position: "absolute", width: 0, height: 0, opacity: 0, overflow: "hidden" }} />
-        <input id="chat-doc-input" type="file"
-          accept="application/pdf"
-          onChange={handleFileChange}
-          style={{ position: "absolute", width: 0, height: 0, opacity: 0, overflow: "hidden" }} />
-
         {/* Text input + emoji + attachment + camera */}
         <form onSubmit={handleSend} className="flex-1 flex items-center bg-white rounded-3xl px-3 py-1 gap-1 shadow-sm min-w-0">
           {/* Emoji icon */}
@@ -436,12 +426,12 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
             className="flex-1 min-w-0 bg-transparent text-[#1d1d1f] text-sm py-1.5 placeholder:text-[#8696a0] focus:outline-none"
           />
 
-          {/* Paperclip — PDFs only */}
+          {/* Paperclip — input nested inside label (most reliable on Android) */}
           <label
-            htmlFor="chat-doc-input"
             className={`p-1.5 shrink-0 transition-colors cursor-pointer ${uploading || sending ? "opacity-40 pointer-events-none" : "text-[#8696a0] hover:text-[#1d1d1f]"}`}
             aria-label="Attach PDF"
           >
+            <input type="file" accept="application/pdf" className="hidden" onChange={handleFileChange} />
             {uploading ? (
               <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -454,12 +444,12 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
             )}
           </label>
 
-          {/* Camera — photos & videos */}
+          {/* Camera — input nested inside label */}
           <label
-            htmlFor="chat-media-input"
             className={`p-1.5 shrink-0 transition-colors cursor-pointer ${uploading || sending ? "opacity-40 pointer-events-none" : "text-[#8696a0] hover:text-[#1d1d1f]"}`}
             aria-label="Send photo or video"
           >
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/3gpp" className="hidden" onChange={handleFileChange} />
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
