@@ -409,13 +409,15 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
 
       {/* Input bar */}
       <div className="pl-2 pr-3 py-2 bg-[#f0f2f5] flex items-end gap-2 shrink-0">
-        {/* Two separate inputs — accept fixed at render time (Android requirement) */}
+        {/* Two separate inputs — visually hidden but NOT display:none (Android compatibility) */}
         <input id="chat-media-input" type="file"
           accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/3gpp"
-          className="hidden" onChange={handleFileChange} />
+          onChange={handleFileChange}
+          style={{ position: "absolute", width: 0, height: 0, opacity: 0, overflow: "hidden" }} />
         <input id="chat-doc-input" type="file"
           accept="application/pdf"
-          className="hidden" onChange={handleFileChange} />
+          onChange={handleFileChange}
+          style={{ position: "absolute", width: 0, height: 0, opacity: 0, overflow: "hidden" }} />
 
         {/* Text input + emoji + attachment + camera */}
         <form onSubmit={handleSend} className="flex-1 flex items-center bg-white rounded-3xl px-3 py-1 gap-1 shadow-sm min-w-0">
