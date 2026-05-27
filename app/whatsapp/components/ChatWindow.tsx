@@ -159,7 +159,13 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
   const bottomRef = useRef<HTMLDivElement>(null);
   const prevMsgCountRef = useRef(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const docInputRef = useRef<HTMLInputElement>(null);
+
+  function openPicker(accept: string) {
+    if (!fileInputRef.current) return;
+    fileInputRef.current.accept = accept;
+    fileInputRef.current.value = "";
+    fileInputRef.current.click();
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -411,18 +417,10 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
 
       {/* Input bar */}
       <div className="pl-2 pr-3 py-2 bg-[#f0f2f5] flex items-end gap-2 shrink-0">
-        {/* Hidden file inputs */}
+        {/* Single hidden file input — accept is set dynamically before click */}
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/3gpp"
-          className="hidden"
-          onChange={handleFileChange}
-        />
-        <input
-          ref={docInputRef}
-          type="file"
-          accept="application/pdf"
           className="hidden"
           onChange={handleFileChange}
         />
@@ -447,7 +445,7 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
           {/* Paperclip — PDFs only */}
           <button
             type="button"
-            onClick={() => docInputRef.current?.click()}
+            onClick={() => openPicker("application/pdf")}
             disabled={uploading || sending}
             className="p-1.5 text-[#8696a0] hover:text-[#1d1d1f] shrink-0 disabled:opacity-40 transition-colors"
             aria-label="Attach PDF"
@@ -467,7 +465,7 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
           {/* Camera — photos & videos */}
           <button
             type="button"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => openPicker("image/jpeg,image/png,image/webp,image/gif,video/mp4,video/3gpp")}
             disabled={uploading || sending}
             className="p-1.5 text-[#8696a0] hover:text-[#1d1d1f] shrink-0 disabled:opacity-40 transition-colors"
             aria-label="Send photo or video"
