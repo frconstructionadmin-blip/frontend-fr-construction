@@ -1,0 +1,13 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - img "FR Construction logo" [ref=e4]
+      - generic [ref=e5]: Admin
+    - generic [ref=e6]:
+      - textbox "Username" [ref=e7]: admin
+      - generic [ref=e8]:
+        - textbox "Password" [ref=e9]: fr2026
+        - button [ref=e10]:
+          - img [ref=e11]
+      - button "Log in" [ref=e14]
+  - alert [ref=e15]

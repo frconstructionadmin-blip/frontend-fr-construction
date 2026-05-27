@@ -1,0 +1,19 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: FR Construction
+        - generic [ref=e6]: Platform
+      - generic [ref=e7]:
+        - textbox "Username" [ref=e8]: admin
+        - generic [ref=e9]:
+          - textbox "Password" [ref=e10]: fr2026
+          - button [ref=e11]:
+            - img [ref=e12]
+        - button "Log in" [ref=e15]
+    - paragraph [ref=e16]:
+      - link "Contact us" [ref=e17] [cursor=pointer]:
+        - /url: https://www.frconstructionuk.com/
+  - button "Open Next.js Dev Tools" [ref=e23] [cursor=pointer]:
+    - img [ref=e24]
+  - alert [ref=e29]

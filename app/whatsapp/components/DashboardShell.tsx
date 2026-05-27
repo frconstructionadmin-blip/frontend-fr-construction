@@ -13,33 +13,50 @@ function urlBase64ToUint8Array(base64: string): Uint8Array {
 }
 
 async function subscribeToPush() {
-  if (!("serviceWorker" in navigator) || !("PushManager" in window)) return;
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+    console.warn("[Push] Service workers or Push API not supported");
+    return;
+  }
 
   const permission = await Notification.requestPermission();
+  console.log("[Push] Notification permission:", permission);
   if (permission !== "granted") return;
 
   const reg = await navigator.serviceWorker.ready;
+  console.log("[Push] Service worker ready:", reg.active?.state);
 
   const vapidRes = await fetch("/api/backend/dashboard/push/vapid-public-key");
-  if (!vapidRes.ok) return;
+  if (!vapidRes.ok) {
+    console.error("[Push] Failed to fetch VAPID key:", vapidRes.status, await vapidRes.text());
+    return;
+  }
   const { publicKey } = await vapidRes.json();
-  if (!publicKey) return;
+  if (!publicKey) {
+    console.error("[Push] VAPID public key is empty — set VAPID_PUBLIC_KEY in backend .env");
+    return;
+  }
 
   const subscription = await reg.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey: urlBase64ToUint8Array(publicKey),
   });
+  console.log("[Push] Browser subscription created:", subscription.endpoint.slice(0, 60) + "…");
 
   const { endpoint, keys } = subscription.toJSON() as {
     endpoint: string;
     keys: { p256dh: string; auth: string };
   };
 
-  await fetch("/api/backend/dashboard/push/subscribe", {
+  const saveRes = await fetch("/api/backend/dashboard/push/subscribe", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ endpoint, p256dh: keys.p256dh, auth: keys.auth }),
   });
+  if (saveRes.ok) {
+    console.log("[Push] Subscription saved to backend ✓");
+  } else {
+    console.error("[Push] Failed to save subscription:", saveRes.status, await saveRes.text());
+  }
 }
 
 interface Props {
