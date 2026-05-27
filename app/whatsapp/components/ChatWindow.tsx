@@ -49,6 +49,75 @@ function getAvatarColor(phone: string): string {
   return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
 }
 
+function MediaContent({ msg }: { msg: Message }) {
+  const rawText = msg.content;
+  // Strip internal prefixes that are meant for the agent, not for display
+  const description = rawText
+    .replace(/^\[(Photo|image|video|Voice message|Image received|Voice message received)\]\s*/i, "")
+    .trim();
+
+  if (msg.media_type === "image") {
+    return (
+      <div>
+        {msg.media_url ? (
+          <a href={msg.media_url} target="_blank" rel="noopener noreferrer">
+            <img
+              src={msg.media_url}
+              alt={msg.media_caption ?? "Photo"}
+              className="rounded-xl max-w-full mb-1 max-h-64 object-cover cursor-pointer"
+            />
+          </a>
+        ) : (
+          <div className="flex items-center gap-2 text-[#8696a0] mb-1">
+            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span className="text-xs italic">Photo</span>
+          </div>
+        )}
+        {description && (
+          <p className="whitespace-pre-wrap break-words leading-relaxed text-xs text-[#667781] italic">
+            {description}
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  if (msg.media_type === "video") {
+    return (
+      <div>
+        {msg.media_url ? (
+          <video src={msg.media_url} controls className="rounded-xl max-w-full mb-1 max-h-64" />
+        ) : (
+          <div className="flex items-center gap-2 text-[#8696a0] mb-1">
+            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+            </svg>
+            <span className="text-xs italic">Video</span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (msg.media_type === "audio") {
+    return (
+      <div>
+        {msg.media_url && <audio src={msg.media_url} controls className="w-full mb-1" />}
+        {description && (
+          <p className="whitespace-pre-wrap break-words leading-relaxed text-xs italic text-[#667781]">
+            🎙 {description}
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  return <p className="whitespace-pre-wrap break-words leading-relaxed">{rawText}</p>;
+}
+
 export default function ChatWindow({ phone, name, initialCosts, onBack }: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [costs, setCosts] = useState<ConversationCosts>(initialCosts);
@@ -288,40 +357,7 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
                     : "bg-[#d9fdd3] text-[#1d1d1f] rounded-tr-sm"
                 }`}
               >
-                {/* Media: image */}
-                {msg.media_type === "image" && msg.media_url && (
-                  <a href={msg.media_url} target="_blank" rel="noopener noreferrer">
-                    <img
-                      src={msg.media_url}
-                      alt={msg.media_caption ?? "Photo"}
-                      className="rounded-xl max-w-full mb-1 max-h-64 object-cover"
-                    />
-                  </a>
-                )}
-
-                {/* Media: video */}
-                {msg.media_type === "video" && msg.media_url && (
-                  <video
-                    src={msg.media_url}
-                    controls
-                    className="rounded-xl max-w-full mb-1 max-h-64"
-                  />
-                )}
-
-                {/* Media: audio (voice note) */}
-                {msg.media_type === "audio" && msg.media_url && (
-                  <audio src={msg.media_url} controls className="w-full mb-1" />
-                )}
-
-                {/* Text content — hide the [Photo] / [Voice message] prefix when media is shown */}
-                {(() => {
-                  const hasMedia = msg.media_url && (msg.media_type === "image" || msg.media_type === "video" || msg.media_type === "audio");
-                  const text = hasMedia
-                    ? msg.content.replace(/^\[(Photo|Voice message|Image received|Voice message received)\]\s*/i, "").trim()
-                    : msg.content;
-                  if (!text) return null;
-                  return <p className="whitespace-pre-wrap break-words leading-relaxed">{text}</p>;
-                })()}
+                <MediaContent msg={msg} />
 
                 {isUser && msg.content_translated && (
                   <p className="text-blue-500 text-xs mt-1.5 italic border-t border-[#e0e0e0] pt-1">
