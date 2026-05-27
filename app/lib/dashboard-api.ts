@@ -26,6 +26,7 @@ export interface Message {
   created_at: string;
   media_type: string | null;
   media_url: string | null;
+  media_caption: string | null;
 }
 
 export interface ConversationSettings {

@@ -288,7 +288,40 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
                     : "bg-[#d9fdd3] text-[#1d1d1f] rounded-tr-sm"
                 }`}
               >
-                <p className="whitespace-pre-wrap break-words leading-relaxed">{msg.content}</p>
+                {/* Media: image */}
+                {msg.media_type === "image" && msg.media_url && (
+                  <a href={msg.media_url} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={msg.media_url}
+                      alt={msg.media_caption ?? "Photo"}
+                      className="rounded-xl max-w-full mb-1 max-h-64 object-cover"
+                    />
+                  </a>
+                )}
+
+                {/* Media: video */}
+                {msg.media_type === "video" && msg.media_url && (
+                  <video
+                    src={msg.media_url}
+                    controls
+                    className="rounded-xl max-w-full mb-1 max-h-64"
+                  />
+                )}
+
+                {/* Media: audio (voice note) */}
+                {msg.media_type === "audio" && msg.media_url && (
+                  <audio src={msg.media_url} controls className="w-full mb-1" />
+                )}
+
+                {/* Text content — hide the [Photo] / [Voice message] prefix when media is shown */}
+                {(() => {
+                  const hasMedia = msg.media_url && (msg.media_type === "image" || msg.media_type === "video" || msg.media_type === "audio");
+                  const text = hasMedia
+                    ? msg.content.replace(/^\[(Photo|Voice message|Image received|Voice message received)\]\s*/i, "").trim()
+                    : msg.content;
+                  if (!text) return null;
+                  return <p className="whitespace-pre-wrap break-words leading-relaxed">{text}</p>;
+                })()}
 
                 {isUser && msg.content_translated && (
                   <p className="text-blue-500 text-xs mt-1.5 italic border-t border-[#e0e0e0] pt-1">
