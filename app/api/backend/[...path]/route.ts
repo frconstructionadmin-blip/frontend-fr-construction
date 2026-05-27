@@ -12,12 +12,7 @@ async function proxy(req: NextRequest, params: { path: string[] }) {
   const contentType = req.headers.get("content-type");
   const headers: Record<string, string> = {};
   if (token) headers["Authorization"] = `Bearer ${token}`;
-  // Only set Content-Type for non-multipart requests; multipart must carry its own boundary
-  if (contentType && !contentType.startsWith("multipart/")) {
-    headers["Content-Type"] = contentType;
-  } else if (!contentType) {
-    headers["Content-Type"] = "application/json";
-  }
+  if (contentType) headers["Content-Type"] = contentType;
 
   const body = req.method !== "GET" && req.method !== "HEAD"
     ? await req.arrayBuffer()
