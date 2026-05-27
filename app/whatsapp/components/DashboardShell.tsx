@@ -69,14 +69,38 @@ const ZERO_COSTS: ConversationCosts = {
   bot_usd: 0, media_usd: 0, translate_in_usd: 0, translate_out_usd: 0, total_usd: 0,
 };
 
+type PushState = "unknown" | "subscribed" | "denied" | "unsupported";
+
 export default function DashboardShell({ initialConversations }: Props) {
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [selectedPhone, setSelectedPhone] = useState<string | null>(null);
   const [chatOpen, setChatOpen] = useState(false);
+  const [pushState, setPushState] = useState<PushState>("unknown");
 
   useEffect(() => {
-    subscribeToPush().catch(() => {});
+    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+      setPushState("unsupported");
+      return;
+    }
+    if (Notification.permission === "granted") {
+      setPushState("subscribed");
+    } else if (Notification.permission === "denied") {
+      setPushState("denied");
+    }
   }, []);
+
+  async function handleEnableNotifications() {
+    try {
+      await subscribeToPush();
+      if (Notification.permission === "granted") {
+        setPushState("subscribed");
+      } else {
+        setPushState("denied");
+      }
+    } catch {
+      setPushState("denied");
+    }
+  }
 
   const selectedConv = conversations.find((c) => c.phone === selectedPhone) ?? null;
 
@@ -93,6 +117,20 @@ export default function DashboardShell({ initialConversations }: Props) {
           chatOpen ? "hidden md:flex" : "flex"
         }`}
       >
+        {pushState === "unknown" && (
+          <button
+            onClick={handleEnableNotifications}
+            className="mx-3 mt-3 flex items-center gap-2 rounded-lg bg-[#1c1c1e] px-3 py-2 text-xs text-white hover:bg-[#2c2c2e] transition-colors"
+          >
+            <span className="text-base">🔔</span>
+            <span>Enable notifications for new messages</span>
+          </button>
+        )}
+        {pushState === "denied" && (
+          <div className="mx-3 mt-3 rounded-lg bg-[#fff3cd] px-3 py-2 text-xs text-[#7a5800]">
+            Notifications blocked. Allow them in browser settings and reload.
+          </div>
+        )}
         <ConversationList
           initialConversations={conversations}
           onConversationsUpdate={setConversations}
