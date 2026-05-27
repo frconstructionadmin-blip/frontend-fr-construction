@@ -79,4 +79,15 @@ export const dashboardApi = {
       `/dashboard/conversations/${encodeURIComponent(phone)}/messages/${messageId}/translate`,
       { method: "POST" }
     ),
+
+  sendMedia: async (phone: string, file: File): Promise<{ sent: boolean; media_type: string }> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch(`${BASE}/dashboard/conversations/${encodeURIComponent(phone)}/send-media`, {
+      method: "POST",
+      body: formData,
+    });
+    if (!res.ok) throw new Error(`API error ${res.status}: ${await res.text()}`);
+    return res.json();
+  },
 };

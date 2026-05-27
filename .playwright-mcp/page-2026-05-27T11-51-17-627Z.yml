@@ -1,0 +1,21 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - button "🔔 Enable notifications for new messages" [ref=e5]:
+        - generic [ref=e6]: 🔔
+        - generic [ref=e7]: Enable notifications for new messages
+      - complementary [ref=e8]:
+        - generic [ref=e9]:
+          - generic [ref=e10]:
+            - heading "Chats" [level=1] [ref=e11]
+            - generic [ref=e12]:
+              - generic [ref=e13]: 0 total
+              - button "Log out" [ref=e14]:
+                - img [ref=e15]
+          - generic [ref=e17]:
+            - img
+            - textbox "Search conversations…" [ref=e18]
+        - paragraph [ref=e20]: No conversations found
+    - paragraph [ref=e23]: Select a conversation to start
+  - button "Open Next.js Dev Tools" [ref=e29] [cursor=pointer]:
+    - img [ref=e30]

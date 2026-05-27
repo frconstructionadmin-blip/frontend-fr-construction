@@ -65,10 +65,12 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
   });
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [translating, setTranslating] = useState<number | null>(null);
   const [showCosts, setShowCosts] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const prevMsgCountRef = useRef(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -147,8 +149,24 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
     }
   }
 
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+    setUploading(true);
+    try {
+      await dashboardApi.sendMedia(phone, file);
+      const msgs = await dashboardApi.getMessages(phone);
+      setMessages(msgs);
+    } catch {
+      // silently fail
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
-    <div className="h-full flex flex-col bg-[#f5f5f7]">
+    <div className="h-full flex flex-col bg-[#efeae2]">
       {/* Header */}
       <div className="px-3 py-2 bg-white border-b border-[#e0e0e0] shrink-0">
         {/* Row 1: back + avatar + name + cost (desktop toggles also here) */}
@@ -267,7 +285,7 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
                 className={`max-w-[75%] sm:max-w-[65%] rounded-2xl px-3 py-2 text-sm shadow-sm ${
                   isUser
                     ? "bg-white text-[#1d1d1f] rounded-tl-sm"
-                    : "bg-[#F5E6C8] text-[#1d1d1f] rounded-tr-sm"
+                    : "bg-[#d9fdd3] text-[#1d1d1f] rounded-tr-sm"
                 }`}
               >
                 <p className="whitespace-pre-wrap break-words leading-relaxed">{msg.content}</p>
@@ -303,27 +321,79 @@ export default function ChatWindow({ phone, name, initialCosts, onBack }: Props)
       </div>
 
       {/* Input bar */}
-      <form
-        onSubmit={handleSend}
-        className="px-3 py-2 bg-white border-t border-[#e0e0e0] flex items-center gap-2 shrink-0"
-      >
+      <div className="px-2 py-2 bg-[#f0f2f5] flex items-end gap-2 shrink-0">
         <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder={settings.translate_out ? "Write in Spanish…" : "Type a message"}
-          className="flex-1 bg-[#f5f5f7] border border-[#e0e0e0] text-[#1d1d1f] text-sm px-4 py-2.5 rounded-full placeholder:text-[#7a7a7a] focus:outline-none focus:border-[#C8972A]/50 transition-colors"
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/3gpp"
+          className="hidden"
+          onChange={handleFileChange}
         />
+
+        {/* Text input + emoji + attachment + camera */}
+        <form onSubmit={handleSend} className="flex-1 flex items-center bg-white rounded-3xl px-3 py-1 gap-1 shadow-sm">
+          {/* Emoji icon */}
+          <button type="button" className="p-1.5 text-[#8696a0] shrink-0" tabIndex={-1} aria-label="Emoji">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5c-2.33-.63-4-2.79-4-5.5h2c0 1.77 1.12 3.28 2.72 3.84L11 16.5zm6-5.5c0 2.71-1.67 4.87-4 5.5l-.72-1.66C13.88 10.28 15 8.77 15 7h2zm-5-4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-3 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+            </svg>
+          </button>
+
+          {/* Text input */}
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={settings.translate_out ? "Write in Spanish…" : "Message"}
+            className="flex-1 bg-transparent text-[#1d1d1f] text-sm py-1.5 placeholder:text-[#8696a0] focus:outline-none"
+          />
+
+          {/* Paperclip */}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading || sending}
+            className="p-1.5 text-[#8696a0] hover:text-[#1d1d1f] shrink-0 disabled:opacity-40 transition-colors"
+            aria-label="Attach file"
+          >
+            {uploading ? (
+              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+              </svg>
+            )}
+          </button>
+
+          {/* Camera */}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading || sending}
+            className="p-1.5 text-[#8696a0] hover:text-[#1d1d1f] shrink-0 disabled:opacity-40 transition-colors"
+            aria-label="Send photo or video"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
+        </form>
+
+        {/* Send button — dark circle like WhatsApp */}
         <button
-          type="submit"
+          onClick={handleSend as unknown as React.MouseEventHandler}
           disabled={sending || !input.trim()}
-          className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors bg-[#C8972A] hover:bg-[#D4A830] disabled:opacity-40 disabled:bg-[#e0e0e0]"
+          className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-colors bg-[#00a884] hover:bg-[#008f72] disabled:bg-[#8696a0] shadow-sm"
           aria-label="Send"
         >
           <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
           </svg>
         </button>
-      </form>
+      </div>
     </div>
   );
 }

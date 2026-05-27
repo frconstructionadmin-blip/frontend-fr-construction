@@ -1,0 +1,183 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - img "FR Construction logo" [ref=e3]
+  - generic [ref=e7]:
+    - paragraph [ref=e8]: London's construction specialists
+    - heading "London's Trusted Builder, Carpenter & Handyman" [level=1] [ref=e9]:
+      - text: London's Trusted Builder,
+      - text: Carpenter & Handyman
+    - paragraph [ref=e10]: Quality construction, carpentry, and handyman services across all of London.
+    - generic [ref=e11]:
+      - link "Contact us" [ref=e12] [cursor=pointer]:
+        - /url: https://wa.me/447944623838?text=Hi%2C%20how%20are%20you%3F%20I%20am%20looking%20for%20construction%2C%20carpentry%20and%20handyman%20solutions
+      - link "What we do" [ref=e13] [cursor=pointer]:
+        - /url: "#services"
+    - paragraph [ref=e14]: ✓ First visit is free — we come to you, assess the job, and give you a quote with no charge.
+  - generic [ref=e15]:
+    - generic [ref=e16]:
+      - heading "Our Work" [level=2] [ref=e17]
+      - paragraph [ref=e18]: Some of our recent projects with our clients across London
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - img "FR Construction work in London" [ref=e23]
+        - generic [ref=e24]: Flooring installation
+      - generic [ref=e25]:
+        - img "FR Construction work in London" [ref=e26]
+        - generic [ref=e27]: Repair & renovation
+      - generic [ref=e28]:
+        - img "FR Construction work in London" [ref=e29]
+        - generic [ref=e30]: Home improvement
+      - generic [ref=e31]:
+        - img "FR Construction work in London" [ref=e32]
+        - generic [ref=e33]: Home improvement
+      - generic [ref=e34]:
+        - img "FR Construction work in London" [ref=e35]
+        - generic [ref=e36]: Home improvement
+      - generic [ref=e37]:
+        - img "FR Construction work in London" [ref=e38]
+        - generic [ref=e39]: Repair & renovation
+      - generic [ref=e40]:
+        - img "FR Construction work in London" [ref=e41]
+        - generic [ref=e42]: Installation work
+      - generic [ref=e43]:
+        - img "FR Construction work in London" [ref=e44]
+        - generic [ref=e45]: Flooring installation
+      - generic [ref=e46]:
+        - img "FR Construction work in London" [ref=e47]
+        - generic [ref=e48]: Repair & renovation
+      - generic [ref=e49]:
+        - img "FR Construction work in London" [ref=e50]
+        - generic [ref=e51]: Home improvement
+      - generic [ref=e52]:
+        - img "FR Construction work in London" [ref=e53]
+        - generic [ref=e54]: Home improvement
+      - generic [ref=e55]:
+        - img "FR Construction work in London" [ref=e56]
+        - generic [ref=e57]: Home improvement
+      - generic [ref=e58]:
+        - img "FR Construction work in London" [ref=e59]
+        - generic [ref=e60]: Repair & renovation
+      - generic [ref=e61]:
+        - img "FR Construction work in London" [ref=e62]
+        - generic [ref=e63]: Installation work
+  - generic [ref=e66]:
+    - heading "About Us" [level=2] [ref=e67]
+    - paragraph [ref=e68]: FR Construction is a professional construction, carpentry, and handyman company operating across all of London. We take on projects of every scale — from full extensions and loft conversions to bespoke fitted wardrobes and everyday repairs — always delivering the same high standard of work.
+    - paragraph [ref=e69]: We work closely with each client to understand their vision and bring it to life. Our pricing is always transparent, our sites are always left tidy, and you will always have a direct point of contact throughout the job.
+    - paragraph [ref=e70]: Quality, reliability, and attention to detail are at the core of everything we do — on every job, every time.
+    - link "Contact us" [ref=e71] [cursor=pointer]:
+      - /url: https://wa.me/447944623838?text=Hi%2C%20how%20are%20you%3F%20I%20am%20looking%20for%20construction%2C%20carpentry%20and%20handyman%20solutions
+  - generic [ref=e72]:
+    - generic [ref=e73]:
+      - heading "What Our Clients Say" [level=2] [ref=e74]
+      - link "Verified reviews on myJobQuote" [ref=e76] [cursor=pointer]:
+        - /url: https://www.myjobquote.co.uk/t/fr-construction-1
+        - img [ref=e77]
+        - generic [ref=e79]: Verified reviews on myJobQuote
+    - generic [ref=e83]:
+      - generic [ref=e84]:
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - generic [ref=e87]: ★★★★★
+            - generic [ref=e88]: myJobQuote
+          - paragraph [ref=e89]: “The flooring job was excellent—everything was done professionally, on time, and with great attention to detail. I’m really happy with how it turned out.”
+        - generic [ref=e90]:
+          - paragraph [ref=e91]: Fernanda
+          - paragraph [ref=e92]: Lay Laminate Flooring In Three Rooms · Apr 2026
+      - generic [ref=e93]:
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]: ★★★★★
+            - generic [ref=e97]: myJobQuote
+          - paragraph [ref=e98]: “Very efficient, and available for this last minute job. Completed everything in a timely manner and helped with some additional things too. Very reasonable too. Highly recommend.”
+        - generic [ref=e99]:
+          - paragraph [ref=e100]: Sj
+          - paragraph [ref=e101]: Assemble Multiple Flat Pack Furniture Items · Apr 2026
+      - generic [ref=e102]:
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - generic [ref=e105]: ★★★★★
+            - generic [ref=e106]: myJobQuote
+          - paragraph [ref=e107]: “Excellent job done knew exactly what he was doing. He was quick and polite would definitely use him again”
+        - generic [ref=e108]:
+          - paragraph [ref=e109]: Virginia
+          - paragraph [ref=e110]: Assemble Stool and TV Stand · Apr 2026
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - generic [ref=e114]: ★★★★★
+            - generic [ref=e115]: myJobQuote
+          - paragraph [ref=e116]: “Very impressed with the service offered. Was able to complete the job within a matter of a few hours from the job being tendered out. I would whole heartedly recommend and if I needed more work of a similar nature required in the future I would go straight to Franco. Many thanks”
+        - generic [ref=e117]:
+          - paragraph [ref=e118]: Ian
+          - paragraph [ref=e119]: Assemble Medium Forest Apex Shed · Mar 2026
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - generic [ref=e122]:
+            - generic [ref=e123]: ★★★★★
+            - generic [ref=e124]: myJobQuote
+          - paragraph [ref=e125]: “The flooring job was excellent—everything was done professionally, on time, and with great attention to detail. I’m really happy with how it turned out.”
+        - generic [ref=e126]:
+          - paragraph [ref=e127]: Fernanda
+          - paragraph [ref=e128]: Lay Laminate Flooring In Three Rooms · Apr 2026
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - generic [ref=e131]:
+            - generic [ref=e132]: ★★★★★
+            - generic [ref=e133]: myJobQuote
+          - paragraph [ref=e134]: “Very efficient, and available for this last minute job. Completed everything in a timely manner and helped with some additional things too. Very reasonable too. Highly recommend.”
+        - generic [ref=e135]:
+          - paragraph [ref=e136]: Sj
+          - paragraph [ref=e137]: Assemble Multiple Flat Pack Furniture Items · Apr 2026
+      - generic [ref=e138]:
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - generic [ref=e141]: ★★★★★
+            - generic [ref=e142]: myJobQuote
+          - paragraph [ref=e143]: “Excellent job done knew exactly what he was doing. He was quick and polite would definitely use him again”
+        - generic [ref=e144]:
+          - paragraph [ref=e145]: Virginia
+          - paragraph [ref=e146]: Assemble Stool and TV Stand · Apr 2026
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - generic [ref=e150]: ★★★★★
+            - generic [ref=e151]: myJobQuote
+          - paragraph [ref=e152]: “Very impressed with the service offered. Was able to complete the job within a matter of a few hours from the job being tendered out. I would whole heartedly recommend and if I needed more work of a similar nature required in the future I would go straight to Franco. Many thanks”
+        - generic [ref=e153]:
+          - paragraph [ref=e154]: Ian
+          - paragraph [ref=e155]: Assemble Medium Forest Apex Shed · Mar 2026
+  - contentinfo [ref=e156]:
+    - generic [ref=e157]:
+      - generic [ref=e158]:
+        - img "FR Construction" [ref=e159]
+        - paragraph [ref=e160]: Professional construction, carpentry & handyman services across all of London.
+        - generic [ref=e161]:
+          - link "Instagram" [ref=e162] [cursor=pointer]:
+            - /url: https://www.instagram.com/FR_contruction
+            - img [ref=e163]
+          - link "WhatsApp" [ref=e165] [cursor=pointer]:
+            - /url: https://wa.me/447944623838?text=Hi%2C%20how%20are%20you%3F%20I%20am%20looking%20for%20construction%2C%20carpentry%20and%20handyman%20solutions
+            - img [ref=e166]
+      - generic [ref=e168]:
+        - generic [ref=e169]:
+          - paragraph [ref=e170]: Services
+          - paragraph [ref=e171]: Construction
+          - paragraph [ref=e172]: Carpentry
+          - paragraph [ref=e173]: Handyman
+        - generic [ref=e174]:
+          - paragraph [ref=e175]: Contact
+          - link "WhatsApp" [ref=e176] [cursor=pointer]:
+            - /url: https://wa.me/447944623838?text=Hi%2C%20how%20are%20you%3F%20I%20am%20looking%20for%20construction%2C%20carpentry%20and%20handyman%20solutions
+          - link "Instagram" [ref=e177] [cursor=pointer]:
+            - /url: https://www.instagram.com/FR_contruction
+          - paragraph [ref=e178]: London, UK
+    - paragraph [ref=e180]: © 2026 FR Construction Ltd · London · All rights reserved
+  - link "See our reviews on MyJobQuote" [ref=e181] [cursor=pointer]:
+    - /url: https://www.myjobquote.co.uk/t/fr-construction-1
+    - img "MyJobQuote" [ref=e182]
+  - link "Chat on WhatsApp" [ref=e183] [cursor=pointer]:
+    - /url: https://wa.me/447944623838?text=Hi%2C%20how%20are%20you%3F%20I%20am%20looking%20for%20construction%2C%20carpentry%20and%20handyman%20solutions
+    - img [ref=e184]
+  - button "Open Next.js Dev Tools" [ref=e191] [cursor=pointer]:
+    - img [ref=e192]
