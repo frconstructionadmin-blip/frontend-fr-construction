@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "FR Construction dashboard — WhatsApp conversations",
     start_url: "/whatsapp",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#ffffff",
+    background_color: "#000000",
+    theme_color: "#000000",
     orientation: "portrait",
     icons: [
       {
