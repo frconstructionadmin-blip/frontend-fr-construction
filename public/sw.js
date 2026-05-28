@@ -4,11 +4,12 @@ self.addEventListener("fetch", (e) => e.respondWith(fetch(e.request)));
 
 self.addEventListener("push", (e) => {
   const data = e.data ? e.data.json() : { title: "New message", body: "" };
+  const origin = self.location.origin;
   e.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-      icon: "/1_black.png",
-      badge: "/1_black.png",
+      icon: origin + "/icon-fr.png",
+      badge: origin + "/icon-fr.png",
       tag: "whatsapp-message",
       renotify: true,
     })
