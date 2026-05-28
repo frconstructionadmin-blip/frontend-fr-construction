@@ -7,8 +7,8 @@ self.addEventListener("push", (e) => {
   e.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-      icon: "/logoreal.png",
-      badge: "/logoreal.png",
+      icon: "/1_black.png",
+      badge: "/1_black.png",
       tag: "whatsapp-message",
       renotify: true,
     })
