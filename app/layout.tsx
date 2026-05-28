@@ -46,7 +46,7 @@ export default function RootLayout({
     <html lang="en-GB">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <link rel="apple-touch-icon" href="/official_logo_black.png" />
+        <link rel="apple-touch-icon" href="/1_black.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
