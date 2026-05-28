@@ -1,6 +1,7 @@
 import Image from "next/image";
 import FadeIn from "./components/FadeIn";
 import WorkSection from "./components/WorkSection";
+import Navbar from "./components/Navbar";
 import { fetchTestimonials } from "./lib/testimonials";
 import TestimonialsCarousel from "./components/TestimonialsCarousel";
 
@@ -12,15 +13,7 @@ export default async function Home() {
   return (
     <>
       {/* ── NAV ─────────────────────────────────────────────────────────── */}
-      <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-start px-4 sm:px-8" style={{ background: "transparent", height: 80, paddingTop: 8 }}>
-        <Image
-          src="/logoreal.png"
-          alt="FR Construction logo"
-          width={72}
-          height={72}
-          style={{ objectFit: "contain" }}
-        />
-      </nav>
+      <Navbar />
 
       {/* ── 1. HERO ──────────────────────────────────────────────────────── */}
       <section
@@ -126,10 +119,12 @@ export default async function Home() {
       </section>
 
       {/* ── 2. WORK PHOTOS ───────────────────────────────────────────────── */}
-      <WorkSection />
+      <div id="work">
+        <WorkSection />
+      </div>
 
       {/* ── 3. ABOUT ─────────────────────────────────────────────────────── */}
-      <section style={{ background: "rgb(250, 250, 250)", padding: "80px 24px" }}>
+      <section id="about" style={{ background: "rgb(250, 250, 250)", padding: "80px 24px" }}>
         <FadeIn>
           <div className="max-w-2xl mx-auto text-center">
             <h2
@@ -180,7 +175,7 @@ export default async function Home() {
       </section>
 
       {/* ── 4. TESTIMONIALS ──────────────────────────────────────────────── */}
-      <section style={{ background: "rgb(247, 245, 242)", padding: "80px 24px" }}>
+      <section id="testimonials" style={{ background: "rgb(247, 245, 242)", padding: "80px 24px" }}>
         <FadeIn>
           <h2
             className="text-center font-semibold mb-4"
@@ -231,7 +226,7 @@ export default async function Home() {
         >
           {/* Left — brand */}
           <div className="flex flex-col" style={{ gap: 16 }}>
-            <Image src="/logoreal.png" alt="FR Construction" width={56} height={56} style={{ objectFit: "contain" }} />
+            <Image src="/official_logo_white.png" alt="FR Construction" width={36} height={36} style={{ objectFit: "contain" }} />
             <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, lineHeight: 1.6, maxWidth: 260 }}>
               Professional construction, carpentry &amp; handyman services across all of London.
             </p>

@@ -23,6 +23,16 @@
   from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+.nav-link {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  letter-spacing: 0.1px;
+  transition: opacity 0.15s;
+}
+.nav-link:hover { opacity: 0.7; }
+
 .hero-tag   { animation: heroFadeUp 0.7s ease 0.1s both; }
 .hero-h1    { animation: heroFadeUp 0.7s ease 0.25s both; }
 .hero-sub   { animation: heroFadeUp 0.7s ease 0.4s both; }

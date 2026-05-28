@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function LoginPage() {
       <div className="flex flex-col items-center w-full max-w-sm flex-1 justify-center">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-8">
-          <span className="text-[#1d1d1f] font-bold text-lg tracking-tight">FR Construction</span>
+          <Image src="/official_logo_black.png" alt="FR Construction" width={52} height={52} style={{ objectFit: "contain" }} />
           <span className="bg-black text-white text-sm font-semibold px-3 py-1 rounded-full">
             Platform
           </span>
